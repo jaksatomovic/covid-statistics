@@ -1,4 +1,4 @@
-package io.github.jaksatomovic.covidstatisticsapp;
+package io.github.jaksatomovic.covid.statistics.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
