@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog dbchangelog-4.1.xsd"
+        logicalFilePath="db.changelog-master.xml">
+
+    <property name="version" value="1.0.0"/>
+    <property name="release_dir" value="release"/>
+    <property name="author" value="jaksatomovic" global="true"/>
+    <property name="rollout_prefix" value="rollout" global="true"/>
+    <property name="file_name_prefix" value="change_set" global="true"/>
+    <include file="changelogs/init.xml" relativeToChangelogFile="true"/>
+    <include file="changelogs/countries.data.sql" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

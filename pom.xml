@@ -15,10 +15,16 @@
 		<module>covid-statistics-web</module>
 		<module>covid-statistics-core</module>
 		<module>covid-statistics-api</module>
+		<module>covid-statistics-commons</module>
 	</modules>
 
 	<properties>
+		<!-- COMMONS -->
+		<commons.api.version>1.0.0-SNAPSHOT</commons.api.version>
+
 		<java.version>1.8</java.version>
+
+		<commons.io.version>2.5</commons.io.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -26,16 +32,11 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.surfire.plugin.version>3.0.0-M3</maven.surfire.plugin.version>
-		<maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-		<maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
-
-		<!-- COMMONS -->
-		<commons.api.version>1.0.0-SNAPSHOT</commons.api.version>
 
 		<!-- Logging -->
 		<slf4j.version>1.7.25</slf4j.version>
-		<log4j.version>2.17.0</log4j.version>
+		<log4j.version>2.15.0</log4j.version>
 
 		<!-- Jackson -->
 		<jackson.version>2.9.4</jackson.version>
@@ -45,23 +46,24 @@
 		<org.apache.logging.log4j.version>2.8.2</org.apache.logging.log4j.version>
 		<jaxb.version>2.2.11</jaxb.version>
 
-		<!-- JJWT -->
-		<jjwt.version>0.10.5</jjwt.version>
+		<!-- Antlr4 -->
+		<antlr.complete.version>3.5.2</antlr.complete.version>
 
 		<!-- JUNIT -->
-		<junit.version>1.2.0</junit.version>
-		<junit.jupiter.version>5.6.1</junit.jupiter.version>
-		<junit.platform.version>1.6.1</junit.platform.version>
+		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 
 		<!-- Mockito -->
-		<mockito.version>3.3.3</mockito.version>
+		<mockito.version>2.11.0</mockito.version>
+		<wiremock.version>2.13.0</wiremock.version>
 
 		<!-- Spring -->
-		<spring.framework.version>5.2.4.RELEASE</spring.framework.version>
-		<spring.boot.starter.thymeleaf.version>2.2.0.RELEASE</spring.boot.starter.thymeleaf.version>
-
-		<!-- Spring Boot -->
-		<spring.boot.version>2.2.5.RELEASE</spring.boot.version>
+		<spring.framework.version>5.1.5.RELEASE</spring.framework.version>
+		<spring.boot.starter.web.version>2.1.3.RELEASE</spring.boot.starter.web.version>
+		<spring.boot.starter.jdbc.version>2.1.3.RELEASE</spring.boot.starter.jdbc.version>
+		<spring.boot.starter.test.version>2.1.3.RELEASE</spring.boot.starter.test.version>
+		<spring.boot.starter.mail.version>2.3.1.RELEASE</spring.boot.starter.mail.version>
+		<spring.boot.maven.plugin.version>2.1.3.RELEASE</spring.boot.maven.plugin.version>
+		<spring.boot.configuration.processor.version>2.1.9.RELEASE</spring.boot.configuration.processor.version>
 
 		<!-- Persistence -->
 		<jpa.specification.version>1.0.0.Final</jpa.specification.version>
@@ -77,28 +79,42 @@
 		<!-- JavaX -->
 		<jta.specification.version>1.1</jta.specification.version>
 
-		<!-- SWAGGER -->
+		<!-- Mail -->
+		<javax.mail.version>1.4.3</javax.mail.version>
+		<sun.mail.version>1.6.2</sun.mail.version>
+
+		<!-- Spring Boot Test -->
+		<spring.boot.test.version>2.1.8.RELEASE</spring.boot.test.version>
+		<spring.boot.starter.test.version>2.1.8.RELEASE</spring.boot.starter.test.version>
+
+		<!-- Swagger -->
 		<swagger.annotations.version>1.6.0</swagger.annotations.version>
-		<swagger.jaxrs.version>2.0.0</swagger.jaxrs.version>
 
 		<!-- Liquibase -->
 		<liquibase.version>3.6.3</liquibase.version>
 
-		<!-- Quartz -->
-		<quartz.version>2.3.2</quartz.version>
+		<!-- Swagger -->
+		<io.springfox.swagger.version>2.9.2</io.springfox.swagger.version>
 
-		<!-- Thymeleaf -->
-		<thymeleaf.extras.springsecurity4>3.0.4.RELEASE</thymeleaf.extras.springsecurity4>
+		<!-- gson -->
+		<gson.version>2.8.8</gson.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 
-			<!-- COMMONS -->
+			<!-- COMMONS API -->
 			<dependency>
 				<groupId>io.github.jaksatomovic</groupId>
 				<artifactId>commons-api</artifactId>
 				<version>${commons.api.version}</version>
+			</dependency>
+
+			<!-- GSON -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
 			</dependency>
 
 			<!-- Logging -->
@@ -163,23 +179,11 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Security & Thymleaf -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-thymeleaf</artifactId>
-				<version>${spring.boot.starter.thymeleaf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.thymeleaf.extras</groupId>
-				<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-				<version>${thymeleaf.extras.springsecurity4}</version>
-			</dependency>
-
 			<!-- Spring Boot -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.starter.web.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.springframework.boot</groupId>
@@ -194,12 +198,22 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-configuration-processor</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.configuration.processor.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${spring.boot.starter.web.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+				<version>${spring.boot.starter.mail.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.starter.test.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -207,15 +221,18 @@
 				<artifactId>spring-boot-starter-log4j2</artifactId>
 				<version>${spring.boot.version}</version>
 			</dependency>
+
+			<!-- Liquibase -->
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-security</artifactId>
-				<version>${spring.boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-jpa</artifactId>
-				<version>${spring.boot.version}</version>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${liquibase.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-classic</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<!-- Spring -->
@@ -300,11 +317,6 @@
 				<artifactId>spring-web</artifactId>
 				<version>${spring.framework.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-core</artifactId>
-				<version>${spring.framework.version}</version>
-			</dependency>
 
 			<!-- Persistence -->
 			<dependency>
@@ -346,6 +358,13 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>${hibernate.core.version}</version>
+				<scope>compile</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>*</groupId>
+						<artifactId>*</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate.common</groupId>
@@ -387,13 +406,30 @@
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>${javassist.version}</version>
-				<scope>compile</scope>
 				<exclusions>
 					<exclusion>
 						<groupId>*</groupId>
 						<artifactId>*</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>*</groupId>
+						<artifactId>*</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- Antlr4 -->
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr-complete</artifactId>
+				<version>${antlr.complete.version}</version>
 			</dependency>
 
 			<!-- Jackson -->
@@ -418,23 +454,11 @@
 				<version>${jackson.datatype.js3310.version}</version>
 			</dependency>
 
-			<!-- Quartz -->
-			<dependency>
-				<groupId>org.quartz-scheduler</groupId>
-				<artifactId>quartz</artifactId>
-				<version>${quartz.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.quartz-scheduler</groupId>
-				<artifactId>quartz-jobs</artifactId>
-				<version>${quartz.version}</version>
-			</dependency>
-
 			<!-- Swagger -->
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-jaxrs2</artifactId>
-				<version>${swagger.jaxrs.version}</version>
+				<version>2.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>io.swagger</groupId>
@@ -445,14 +469,14 @@
 			<!-- JUnit -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
+				<artifactId>junit-jupiter</artifactId>
 				<version>${junit.jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-runner</artifactId>
-				<version>${junit.platform.version}</version>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit.jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -464,9 +488,9 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-junit-jupiter</artifactId>
-				<version>${mockito.version}</version>
+				<groupId>com.github.tomakehurst</groupId>
+				<artifactId>wiremock</artifactId>
+				<version>${wiremock.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -474,51 +498,72 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-test</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.test.version}</version>
 				<scope>test</scope>
 			</dependency>
 
+			<!-- Swagger -->
 			<dependency>
-				<groupId>antlr</groupId>
-				<artifactId>antlr</artifactId>
-				<version>${antlr.version}</version>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${io.springfox.swagger.version}</version>
 			</dependency>
-
-			<!-- Liquibase -->
 			<dependency>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-core</artifactId>
-				<version>${liquibase.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-classic</artifactId>
-					</exclusion>
-				</exclusions>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${io.springfox.swagger.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-bean-validators</artifactId>
+				<version>${io.springfox.swagger.version}</version>
+			</dependency>
 		</dependencies>
-
 	</dependencyManagement>
+
 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surfire.plugin.version}</version>
+				<configuration>
+					<forkCount>1</forkCount>
+					<trimStackTrace>false</trimStackTrace>
+				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>${junit.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.junit.jupiter</groupId>
-						<artifactId>junit-jupiter-engine</artifactId>
-						<version>${junit.jupiter.version}</version>
+						<groupId>org.ow2.asm</groupId>
+						<artifactId>asm</artifactId>
+						<version>6.2</version>
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>extra-enforcer-rules</artifactId>
+						<version>1.0-beta-7</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<rules>
+						<enforceBytecodeVersion>
+							<maxJdkVersion>1.8</maxJdkVersion>
+							<excludes>
+								<exclude>org.ow2.asm</exclude>
+								<exclude>org.junit.platform</exclude>
+							</excludes>
+						</enforceBytecodeVersion>
+					</rules>
+					<fail>true</fail>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

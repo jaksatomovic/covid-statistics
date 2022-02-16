@@ -35,7 +35,6 @@ build/
 /.mvn/wrapper/MavenWrapperDownloader.java
 /mvnw
 /mvnw.cmd
-/cms-reporting.log
 
 ### Vim ###
 .*.swp

@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "d1cde4e8-dfb7-4a47-8d29-7797bc03e006",
+		"name": "COVID-19 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Countries",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-host",
+						"value": "{{x-rapidapi-host}}",
+						"type": "text"
+					},
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{x-rapidapi-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://covid-193.p.rapidapi.com/countries",
+					"protocol": "https",
+					"host": [
+						"covid-193",
+						"p",
+						"rapidapi",
+						"com"
+					],
+					"path": [
+						"countries"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Statistics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-host",
+						"value": "{{x-rapidapi-host}}",
+						"type": "text"
+					},
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{x-rapidapi-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://covid-193.p.rapidapi.com/statistics",
+					"protocol": "https",
+					"host": [
+						"covid-193",
+						"p",
+						"rapidapi",
+						"com"
+					],
+					"path": [
+						"statistics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "History",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-host",
+						"value": "{{x-rapidapi-host}}",
+						"type": "text"
+					},
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{x-rapidapi-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://covid-193.p.rapidapi.com/history?country=usa&day=2022-02-22",
+					"protocol": "https",
+					"host": [
+						"covid-193",
+						"p",
+						"rapidapi",
+						"com"
+					],
+					"path": [
+						"history"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "usa"
+						},
+						{
+							"key": "day",
+							"value": "2022-02-22"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "x-rapidapi-host",
+			"value": "covid-193.p.rapidapi.com",
+			"type": "string"
+		},
+		{
+			"key": "x-rapidapi-key",
+			"value": "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e",
+			"type": "string"
+		}
+	]
+}

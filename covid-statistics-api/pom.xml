@@ -15,6 +15,13 @@
     <name>COVID STATISTICS - API</name>
 
     <dependencies>
+        <!-- Covid Statistics -->
+        <dependency>
+            <groupId>io.github.jaksatomovic</groupId>
+            <artifactId>covid-statistics-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- COMMONS -->
         <dependency>
             <groupId>io.github.jaksatomovic</groupId>
