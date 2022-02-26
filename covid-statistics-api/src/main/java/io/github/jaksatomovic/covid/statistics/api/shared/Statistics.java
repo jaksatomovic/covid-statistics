@@ -11,17 +11,17 @@ import io.github.jaksatomovic.commons.api.model.ApiEntity;
 public class Statistics
     extends ApiEntity
 {
-    private Integer newCases;
-    private Integer activeCases;
-    private Integer criticalCases;
-    private Integer recoveredCases;
+    private Double  newCases;
+    private Double  activeCases;
+    private Double criticalCases;
+    private Double recoveredCases;
 
     /**
      * Gets new cases.
      *
      * @return the new cases
      */
-    public Integer getNewCases()
+    public Double getNewCases()
     {
         return newCases;
     }
@@ -31,7 +31,7 @@ public class Statistics
      *
      * @param newCases the new cases
      */
-    public void setNewCases(final Integer newCases)
+    public void setNewCases(final Double newCases)
     {
         this.newCases = newCases;
     }
@@ -41,7 +41,7 @@ public class Statistics
      *
      * @return the active cases
      */
-    public Integer getActiveCases()
+    public Double getActiveCases()
     {
         return activeCases;
     }
@@ -51,7 +51,7 @@ public class Statistics
      *
      * @param activeCases the active cases
      */
-    public void setActiveCases(final Integer activeCases)
+    public void setActiveCases(final Double activeCases)
     {
         this.activeCases = activeCases;
     }
@@ -61,7 +61,7 @@ public class Statistics
      *
      * @return the critical cases
      */
-    public Integer getCriticalCases()
+    public Double getCriticalCases()
     {
         return criticalCases;
     }
@@ -71,7 +71,7 @@ public class Statistics
      *
      * @param criticalCases the critical cases
      */
-    public void setCriticalCases(final Integer criticalCases)
+    public void setCriticalCases(final Double criticalCases)
     {
         this.criticalCases = criticalCases;
     }
@@ -81,7 +81,7 @@ public class Statistics
      *
      * @return the recovered cases
      */
-    public Integer getRecoveredCases()
+    public Double getRecoveredCases()
     {
         return recoveredCases;
     }
@@ -91,7 +91,7 @@ public class Statistics
      *
      * @param recoveredCases the recovered cases
      */
-    public void setRecoveredCases(final Integer recoveredCases)
+    public void setRecoveredCases(final Double recoveredCases)
     {
         this.recoveredCases = recoveredCases;
     }

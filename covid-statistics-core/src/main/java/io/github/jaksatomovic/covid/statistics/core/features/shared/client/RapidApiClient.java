@@ -1,9 +1,12 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
+import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetCountriesRequest;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetCountriesResponse;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetCountriesResponse;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,52 +22,87 @@ public class RapidApiClient
 {
 
     public GetCountriesResponse fetchCountries(final GetCountriesRequest request)
+        throws RapidApiException
     {
+        return secureExecute(new Executor<GetCountriesRequest, GetCountriesResponse>()
+        {
+            @Override
+            public GetCountriesRequest getRequest()
+            {
+                return request;
+            }
 
-        // TODO secure execute
-        logger.info("External Countries fetch - request: {}", request);
+            @Override
+            public GetCountriesResponse execute(final GetCountriesRequest request)
+            {
+                logger.info("External Countries fetch - request: {}", request);
 
-        String url = "https://covid-193.p.rapidapi.com/countries";
-        logger.trace("External Countries fetch - url: {}", url);
+                String url = "https://covid-193.p.rapidapi.com/countries";
 
-        ResponseEntity<GetCountriesResponse> result = getRestTemplate().exchange(
-            url,
-            HttpMethod.GET,
-            createHttpRequest(request, fillHeader()),
-            GetCountriesResponse.class
-        );
+                validateGetCountriesRequest(request);
 
-        logger.info("External Countries fetched - response: {}", result.getBody());
+                ResponseEntity<GetCountriesResponse> result = getRestTemplate().exchange(
+                    url,
+                    HttpMethod.GET,
+                    createHttpRequest(request, fillHeader()),
+                    GetCountriesResponse.class
+                );
 
-        return result.getBody();
+                logger.info("External Countries fetched - response: {}", result.getBody());
+                return result.getBody();
+            }
+
+            private void validateGetCountriesRequest(GetCountriesRequest request)
+            {
+                Defense.notNull(request, "GetCountriesRequest");
+            }
+        });
     }
 
     public GetHistoryResponse fetchHistory(final GetHistoryRequest request)
+        throws RapidApiException
     {
+        return secureExecute(new Executor<GetHistoryRequest, GetHistoryResponse>()
+        {
+            @Override
+            public GetHistoryRequest getRequest()
+            {
+                return request;
+            }
 
-        // TODO secure execute
-        logger.info("External Countries fetch - request: {}", request);
-        //validate
+            @Override
+            public GetHistoryResponse execute(final GetHistoryRequest request)
+            {
+                logger.info("GET History - request: {}", request);
 
-        // TODO resolve url from request https://covid-193.p.rapidapi.com/history?country=usa&day=2022-02-22
-        String url = "https://covid-193.p.rapidapi.com/history?country=usa&day=2022-02-22";// + request.getCountry() + "&day=" + request.getDate().toString();
-        logger.trace("External Countries fetch - url: {}", url);
+                String url = "https://covid-193.p.rapidapi.com/history?country=" + request.getCountry() + "&day=" + request.getDate().toString();
 
-        ResponseEntity<GetHistoryResponse> result = getRestTemplate().exchange(
-            url,
-            HttpMethod.GET,
-            createHttpRequest(request, fillHeader()),
-            GetHistoryResponse.class
-        );
+                validateGetHistoryRequest(request);
 
-        logger.info("External Countries fetched - response: {}", result.getBody());
+                ResponseEntity<GetHistoryResponse> result = getRestTemplate().exchange(
+                    url,
+                    HttpMethod.GET,
+                    createHttpRequest(request, fillHeader()),
+                    GetHistoryResponse.class
+                );
 
-        return result.getBody();
+                logger.info("GET History - response: {}", result.getBody());
+                return result.getBody();
+            }
+
+            private void validateGetHistoryRequest(GetHistoryRequest request)
+            {
+                Defense.notNull(request, "GetCountriesRequest");
+                Defense.notNull(request.getCountry(), "country");
+                Defense.notNull(request.getDate(), "date");
+            }
+        });
     }
 
     @Override
     HttpHeaders fillHeader()
     {
+        // TODO application properties
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-rapidapi-host", "covid-193.p.rapidapi.com");
         headers.add("x-rapidapi-key", "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e");

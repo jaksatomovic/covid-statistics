@@ -85,9 +85,10 @@ public abstract class Store<K extends Serializable & Comparable<K>, E extends Db
      *
      * @param entity the entity
      */
-    public void saveEntity(E entity)
+    public E saveEntity(E entity)
     {
         entityManager.persist(entity);
+        return entity;
     }
 
     /**

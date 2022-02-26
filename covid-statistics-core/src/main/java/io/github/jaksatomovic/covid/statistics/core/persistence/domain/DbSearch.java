@@ -1,14 +1,18 @@
 package io.github.jaksatomovic.covid.statistics.core.persistence.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The type Db search.
@@ -48,14 +52,61 @@ public class DbSearch
     @Column (name = "date_from",
              nullable = false)
     private LocalDate dateFrom;
+
     @Column (name = "date_to",
              nullable = false)
     private LocalDate dateTo;
 
-    @Override
-    public int hashCode()
+    @OneToMany (fetch = FetchType.EAGER,
+                cascade = CascadeType.ALL,
+                orphanRemoval = true,
+                mappedBy = "search")
+    private Set<DbSearchResult> searchResults;
+
+    @OneToMany (fetch = FetchType.EAGER,
+                cascade = CascadeType.ALL,
+                orphanRemoval = true,
+                mappedBy = "search")
+    private Set<DbStatistics> statistics;
+
+    /**
+     * Gets search results.
+     *
+     * @return the search results
+     */
+    public Set<DbSearchResult> getSearchResults()
     {
-        return Objects.hash(super.hashCode(), id, country, dateFrom, dateTo);
+        return searchResults;
+    }
+
+    /**
+     * Sets search results.
+     *
+     * @param searchResults the search results
+     */
+    public void setSearchResults(final Set<DbSearchResult> searchResults)
+    {
+        this.searchResults = searchResults;
+    }
+
+    /**
+     * Gets statistics.
+     *
+     * @return the statistics
+     */
+    public Set<DbStatistics> getStatistics()
+    {
+        return statistics;
+    }
+
+    /**
+     * Sets statistics.
+     *
+     * @param statistics the statistics
+     */
+    public void setStatistics(final Set<DbStatistics> statistics)
+    {
+        this.statistics = statistics;
     }
 
     /**
@@ -128,24 +179,5 @@ public class DbSearch
     public void setId(final Long id)
     {
         this.id = id;
-    }
-
-    @Override
-    public boolean equals(final Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass())
-        {
-            return false;
-        }
-        if (!super.equals(o))
-        {
-            return false;
-        }
-        DbSearch dbSearch = (DbSearch)o;
-        return id.equals(dbSearch.id) && country.equals(dbSearch.country) && dateFrom.equals(dbSearch.dateFrom) && dateTo.equals(dbSearch.dateTo);
     }
 }

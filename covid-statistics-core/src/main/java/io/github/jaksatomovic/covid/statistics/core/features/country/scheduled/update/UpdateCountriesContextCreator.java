@@ -3,10 +3,13 @@ package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.
 import io.github.jaksatomovic.commons.api.validation.Check;
 import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.country.shared.context.CountryContextCreator;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetCountriesRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetCountriesResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.Mutable;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.CountryStore;
 import org.springframework.stereotype.Service;
@@ -93,9 +96,16 @@ public class UpdateCountriesContextCreator
 
     private Map<String, Long> fetchAllCountriesFromApi()
     {
-        GetCountriesResponse allCountries = rapidApiClient.fetchCountries(new GetCountriesRequest());
+        try
+        {
+            GetCountriesResponse allCountries = rapidApiClient.fetchCountries(new GetCountriesRequest());
 
-        return resolveResult(allCountries);
+            return resolveResult(allCountries);
+        }
+        catch (RapidApiException e)
+        {
+            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
+        }
     }
 
     private Map<String, Long> resolveResult(final GetCountriesResponse result)

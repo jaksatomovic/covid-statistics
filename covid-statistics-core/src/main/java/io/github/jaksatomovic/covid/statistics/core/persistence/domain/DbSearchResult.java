@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,6 +33,75 @@ public class DbSearchResult
     @Column (name = "id",
              nullable = false)
     private Long id;
+
+    @ManyToOne
+    private DbSearch search;
+
+    @Column (name = "new_cases",
+             nullable = false)
+    private Long newCases;
+
+    @Column (name = "active_cases",
+             nullable = false)
+    private Long activeCases;
+
+    @Column (name = "critical_cases",
+             nullable = false)
+    private Long criticalCases;
+
+    @Column (name = "recovered_cases",
+             nullable = false)
+    private Long recoveredCases;
+
+    public DbSearch getSearch()
+    {
+        return search;
+    }
+
+    public void setSearch(final DbSearch search)
+    {
+        this.search = search;
+    }
+
+    public Long getNewCases()
+    {
+        return newCases;
+    }
+
+    public void setNewCases(final Long newCases)
+    {
+        this.newCases = newCases;
+    }
+
+    public Long getActiveCases()
+    {
+        return activeCases;
+    }
+
+    public void setActiveCases(final Long activeCases)
+    {
+        this.activeCases = activeCases;
+    }
+
+    public Long getCriticalCases()
+    {
+        return criticalCases;
+    }
+
+    public void setCriticalCases(final Long criticalCases)
+    {
+        this.criticalCases = criticalCases;
+    }
+
+    public Long getRecoveredCases()
+    {
+        return recoveredCases;
+    }
+
+    public void setRecoveredCases(final Long recoveredCases)
+    {
+        this.recoveredCases = recoveredCases;
+    }
 
     @Override
     public Long getId()

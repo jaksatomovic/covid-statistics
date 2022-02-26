@@ -1,6 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.context;
 
 import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 
 /**
  * Base interface for all context creator classes.
@@ -14,5 +15,6 @@ import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
  */
 public interface ContextCreator<C extends OperationContext, R extends AbstractRequest>
 {
-    C create(R request);
+    C create(R request)
+        throws ApiException;
 }

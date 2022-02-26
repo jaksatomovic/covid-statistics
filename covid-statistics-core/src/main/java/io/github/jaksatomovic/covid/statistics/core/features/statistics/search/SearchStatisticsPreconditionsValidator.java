@@ -13,9 +13,9 @@ public class SearchStatisticsPreconditionsValidator
     {
         Defense.notNull(context.getCasesFrom().get(), "response from");
         Defense.notNull(context.getCasesTo().get(), "response to");
-        Defense.notNull(context.getCasesTo().get().getResponse(), "cases from");
+        Defense.notNull(context.getCasesFrom().get().getResponse(), "cases from");
         Defense.notNull(context.getCasesTo().get().getResponse(), "cases to");
-        Defense.notEmpty(context.getCasesTo().get().getResponse(), "cases from");
+        Defense.notEmpty(context.getCasesFrom().get().getResponse(), "cases from");
         Defense.notEmpty(context.getCasesTo().get().getResponse(), "cases to");
     }
 }

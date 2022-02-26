@@ -1,9 +1,11 @@
 package io.github.jaksatomovic.covid.statistics.web.configuration;
 
+import io.github.jaksatomovic.covid.statistics.web.controller.StatisticsController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -38,7 +40,7 @@ public class SwaggerConfiguration
     {
         return new Docket(DocumentationType.SWAGGER_2).groupName(GROUP_NAME)
                                                       .select()
-                                                      //                                                      .apis(RequestHandlerSelectors.basePackage(MonitoringController.class.getPackage().getName()))
+                                                      .apis(RequestHandlerSelectors.basePackage(StatisticsController.class.getPackage().getName()))
                                                       .paths(PathSelectors.any())
                                                       .build()
                                                       .apiInfo(getApiInfo());

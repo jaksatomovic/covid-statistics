@@ -2,11 +2,16 @@ package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.context.Mutable;
 import io.github.jaksatomovic.covid.statistics.core.features.statistics.shared.StatisticsContextCreator;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
+import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbStatistics;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchResultStore;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchStore;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.StatisticsStore;
@@ -22,7 +27,8 @@ import java.util.Optional;
 public class SearchStatisticsContextCreator
     extends StatisticsContextCreator<SearchStatisticsContext, SearchStatisticsRequest>
 {
-    private final RapidApiClient rapidApiClient;
+    private static final String         DB_STATISTICS = "dbStatistics";
+    private final        RapidApiClient rapidApiClient;
 
     /**
      * Instantiates a new Statistics context creator.
@@ -30,7 +36,7 @@ public class SearchStatisticsContextCreator
      * @param statisticsStore   the statistics store
      * @param searchStore       the search store
      * @param searchResultStore the search result store
-     * @param rapidApiClient
+     * @param rapidApiClient    the rapid api client
      */
     protected SearchStatisticsContextCreator(final StatisticsStore statisticsStore, final SearchStore searchStore, final SearchResultStore searchResultStore, final RapidApiClient rapidApiClient)
     {
@@ -46,6 +52,8 @@ public class SearchStatisticsContextCreator
 
         Optional<DbSearch> getExistingOverlappingSearch = searchStore.getIfOverlapsBy(request.getCountry(), request.getDateFrom(), request.getDateTo());
 
+        Mutable<DbStatistics> dbStatistics = new Mutable<>(DB_STATISTICS);
+
         return new SearchStatisticsContext()
         {
             @Override
@@ -58,6 +66,12 @@ public class SearchStatisticsContextCreator
             public Optional<GetHistoryResponse> getCasesTo()
             {
                 return Optional.ofNullable(casesTo);
+            }
+
+            @Override
+            public Mutable<DbStatistics> getDbStatistics()
+            {
+                return dbStatistics;
             }
 
             @Override
@@ -85,6 +99,13 @@ public class SearchStatisticsContextCreator
 
     private GetHistoryResponse fetchHistoryForDate(final GetHistoryRequest request)
     {
-        return rapidApiClient.fetchHistory(request);
+        try
+        {
+            return rapidApiClient.fetchHistory(request);
+        }
+        catch (RapidApiException e)
+        {
+            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
+        }
     }
 }

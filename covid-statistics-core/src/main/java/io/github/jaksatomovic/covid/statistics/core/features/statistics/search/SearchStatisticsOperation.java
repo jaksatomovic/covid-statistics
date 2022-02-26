@@ -1,11 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.commons.api.validation.Defense;
-import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
-import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesResponse;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsResponse;
-import io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update.UpdateCountriesContext;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.operation.MainOperation;
 import org.springframework.stereotype.Service;
 

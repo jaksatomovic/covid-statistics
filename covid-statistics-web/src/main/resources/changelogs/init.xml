@@ -12,6 +12,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
         <createTable tableName="search">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="search_pkey"/>
@@ -19,17 +20,21 @@
             <column name="country" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_from" type="TIMESTAMP WITH TIME ZONE">
+            <column name="date_from" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_to" type="TIMESTAMP WITH TIME ZONE">
+            <column name="date_to" type="DATE">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
         <createTable tableName="search_result">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="search_result_pkey"/>
             </column>
+            <column name="search_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
             <column name="new_cases" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -43,22 +48,38 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="search_id"
+                                 baseTableName="search_result"
+                                 constraintName="fk_search_result_search_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="search"/>
+
         <createTable tableName="statistics">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="statistics_pkey"/>
             </column>
-            <column name="new_cases" type="BIGINT">
+            <column name="search_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="new_cases" type="double precision">
                 <constraints nullable="false"/>
             </column>
-            <column name="active_cases" type="BIGINT">
+            <column name="active_cases" type="double precision">
                 <constraints nullable="false"/>
             </column>
-            <column name="critical_cases" type="BIGINT">
+            <column name="critical_cases" type="double precision">
                 <constraints nullable="false"/>
             </column>
-            <column name="recovered_cases" type="BIGINT">
+            <column name="recovered_cases" type="double precision">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="search_id"
+                                 baseTableName="statistics"
+                                 constraintName="fk_statistics_search_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="search"/>
     </changeSet>
 </databaseChangeLog>

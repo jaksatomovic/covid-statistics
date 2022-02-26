@@ -2,7 +2,10 @@ package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.context.Mutable;
 import io.github.jaksatomovic.covid.statistics.core.features.statistics.shared.StatisticsContext;
+import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
+import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbStatistics;
 
 import java.util.Optional;
 
@@ -18,4 +21,6 @@ public interface SearchStatisticsContext
     Optional<GetHistoryResponse> getCasesFrom();
 
     Optional<GetHistoryResponse> getCasesTo();
+
+    Mutable<DbStatistics> getDbStatistics();
 }

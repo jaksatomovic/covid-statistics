@@ -2,10 +2,10 @@ package io.github.jaksatomovic.covid.statistics.core.features.shared.operation;
 
 import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
 import io.github.jaksatomovic.commons.api.messages.response.AbstractResponse;
+import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.OperationContext;
-import org.omg.CORBA.portable.UnknownException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +27,9 @@ public abstract class MainOperation<I extends AbstractRequest, O extends Abstrac
 {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Transactional (noRollbackFor = AppException.class)
+    @Transactional (noRollbackFor = ApiException.class)
     public O execute(I request)
-        throws AppException
+        throws ApiException
     {
         try
         {
@@ -41,12 +41,12 @@ public abstract class MainOperation<I extends AbstractRequest, O extends Abstrac
         catch (AppException pse)
         {
             logger.error("Service exception: {}", pse.getMessage());
-            throw new AppException(ResponseCode.UNKNOWN, pse.getMessage());
+            throw ApiException.createFrom(ResponseCode.REQUEST_INVALID, pse.getMessage());
         }
         catch (Exception e)
         {
             logger.error("System exception: ", e);
-            throw new UnknownException(e.getCause());
+            throw ApiException.createFrom(e.getMessage());
         }
     }
 
@@ -78,5 +78,8 @@ public abstract class MainOperation<I extends AbstractRequest, O extends Abstrac
     public enum Operation
     {
         UPDATE_COUNTRIES,
+        DELETE_STATISTICS,
+        SEARCH_STATISTICS,
+        CLEANUP
     }
 }

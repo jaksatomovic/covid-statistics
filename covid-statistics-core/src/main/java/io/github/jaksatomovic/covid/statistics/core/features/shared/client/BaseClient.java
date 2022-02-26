@@ -1,5 +1,10 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
+import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.RapidApiRequest;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.RapidApiResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -27,4 +32,24 @@ public abstract class BaseClient
     }
 
     abstract HttpHeaders fillHeader();
+
+    protected <I extends RapidApiRequest, O extends RapidApiResponse> O secureExecute(Executor<I, O> executor)
+        throws RapidApiException
+    {
+        try
+        {
+            return executor.execute(executor.getRequest());
+        }
+        catch (Exception var5)
+        {
+            throw this.handleGeneralException(var5, executor.getRequest());
+        }
+    }
+
+    protected <T extends RapidApiRequest> RapidApiException handleGeneralException(Exception ex, T request)
+        throws RapidApiException
+    {
+        logger.error("General exception occurred: {}", ex.getMessage());
+        throw RapidApiException.createFrom(request, ResponseCode.UNKNOWN, ex.getMessage());
+    }
 }
