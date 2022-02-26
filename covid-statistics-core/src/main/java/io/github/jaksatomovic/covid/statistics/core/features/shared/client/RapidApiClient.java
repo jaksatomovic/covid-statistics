@@ -75,7 +75,7 @@ public class RapidApiClient
             {
                 logger.info("GET History - request: {}", request);
 
-                String url = "https://covid-193.p.rapidapi.com/history?country=" + request.getCountry() + "&day=" + request.getDate().toString();
+                String url = "https://covid-193.p.rapidapi.com/history?country=" + request.getCountry().toLowerCase() + "&day=" + request.getDate().toString();
 
                 validateGetHistoryRequest(request);
 

@@ -38,6 +38,11 @@ public class CountryStore
         this.repository = Defense.notNull(repository, CountryRepository.class.getSimpleName());
     }
 
+    public CountryRepository getRepository()
+    {
+        return repository;
+    }
+
     @Override
     protected Class<DbCountry> getEntityClass()
     {

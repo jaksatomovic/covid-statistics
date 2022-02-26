@@ -43,7 +43,7 @@ public class SearchStatisticsResourceMaintainer
     private DbSearch handleSearch(final SearchStatisticsContext context)
     {
         DbSearch dbSearch = new DbSearch();
-        dbSearch.setCountry(context.getOriginalRequest().getCountry());
+        dbSearch.setCountry(context.getCountry().get());
         dbSearch.setDateFrom(context.getOriginalRequest().getDateFrom());
         dbSearch.setDateTo(context.getOriginalRequest().getDateTo());
 

@@ -22,15 +22,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration
 {
-    /**
-     * The constant API_INFO_VERSION.
-     */
-    public static final String API_INFO_VERSION = "v1";
-    /**
-     * The constant API_INFO_TITLE.
-     */
-    public static final String API_INFO_TITLE   = "COVID-19 Statistics";
-    public static final String GROUP_NAME       = "COVID-19";
+
+    private static final String API_INFO_VERSION = "v1";
+    private static final String API_INFO_TITLE   = "COVID-19 Statistics";
+    private static final String GROUP_NAME       = "COVID-19";
+    private static final String NAME             = "Jakša Tomović";
+    private static final String GITHUB_IO        = "jaksatomovic.github.io";
+    private static final String EMAIL            = "jaksa.tomovic@gmail.com";
 
     /**
      * Responsible for creating/exposing Swagger API.
@@ -53,7 +51,7 @@ public class SwaggerConfiguration
      */
     private ApiInfo getApiInfo()
     {
-        Contact contact = new Contact("cyan Security Group GmbH", "www.cyansecurity.com", "office@cyansecurity.com");
+        Contact contact = new Contact(NAME, GITHUB_IO, EMAIL);
         return new ApiInfoBuilder().title(API_INFO_TITLE).version(API_INFO_VERSION).contact(contact).build();
     }
 }

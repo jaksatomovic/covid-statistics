@@ -1,8 +1,7 @@
-package io.github.jaksatomovic.covid.statistics.core.features.statistics.shared;
+package io.github.jaksatomovic.covid.statistics.core.features.cleanup.shared;
 
 import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.OperationContext;
-import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbCountry;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
 
 import java.util.List;
@@ -13,10 +12,8 @@ import java.util.Optional;
  *
  * @param <R> the type parameter
  */
-public interface StatisticsContext<R extends AbstractRequest>
+public interface CleanupBaseContext<R extends AbstractRequest>
     extends OperationContext<R>
 {
-    Optional<DbCountry> getCountry();
-
-    Optional<List<DbSearch>> getExistingSearches();
+    Optional<List<DbSearch>> getAllSearches();
 }

@@ -7,11 +7,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -45,10 +47,6 @@ public class DbSearch
              nullable = false)
     private Long id;
 
-    @Column (name = "country",
-             nullable = false)
-    private String country;
-
     @Column (name = "date_from",
              nullable = false)
     private LocalDate dateFrom;
@@ -56,6 +54,10 @@ public class DbSearch
     @Column (name = "date_to",
              nullable = false)
     private LocalDate dateTo;
+
+    @OneToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    private DbCountry country;
 
     @OneToMany (fetch = FetchType.EAGER,
                 cascade = CascadeType.ALL,
@@ -68,6 +70,26 @@ public class DbSearch
                 orphanRemoval = true,
                 mappedBy = "search")
     private Set<DbStatistics> statistics;
+
+    /**
+     * Gets country.
+     *
+     * @return the country
+     */
+    public DbCountry getCountry()
+    {
+        return country;
+    }
+
+    /**
+     * Sets country.
+     *
+     * @param country the country
+     */
+    public void setCountry(final DbCountry country)
+    {
+        this.country = country;
+    }
 
     /**
      * Gets search results.
@@ -107,26 +129,6 @@ public class DbSearch
     public void setStatistics(final Set<DbStatistics> statistics)
     {
         this.statistics = statistics;
-    }
-
-    /**
-     * Gets country.
-     *
-     * @return the country
-     */
-    public String getCountry()
-    {
-        return country;
-    }
-
-    /**
-     * Sets country.
-     *
-     * @param country the country
-     */
-    public void setCountry(final String country)
-    {
-        this.country = country;
     }
 
     /**

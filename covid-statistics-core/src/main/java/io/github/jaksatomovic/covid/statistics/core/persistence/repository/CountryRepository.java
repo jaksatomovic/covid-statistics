@@ -16,4 +16,6 @@ public interface CountryRepository
     extends CrudRepository<DbCountry, Long>, JpaSpecificationExecutor<DbCountry>
 {
     List<DbCountry> findAll();
+
+    DbCountry getByName(final String name);
 }

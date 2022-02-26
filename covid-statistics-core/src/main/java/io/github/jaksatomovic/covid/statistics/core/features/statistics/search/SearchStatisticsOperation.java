@@ -64,6 +64,6 @@ public class SearchStatisticsOperation
     @Override
     protected Operation getOperation()
     {
-        return Operation.UPDATE_COUNTRIES;
+        return Operation.SEARCH_STATISTICS;
     }
 }

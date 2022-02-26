@@ -45,5 +45,4 @@ public abstract class StatisticsContextCreator<C extends OperationContext<? exte
         this.searchStore = Defense.notNull(searchStore, SearchStore.class.getSimpleName());
         this.searchResultStore = Defense.notNull(searchResultStore, SearchResultStore.class.getSimpleName());
     }
-
 }
