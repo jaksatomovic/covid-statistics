@@ -12,12 +12,6 @@ public class SearchStatisticsPreconditionsValidator
     public void validate(final SearchStatisticsContext context)
     {
         Defense.notNull(context.getCountry().get(), "country");
-        Defense.notNull(context.getCasesFrom().get(), "response from");
-        Defense.notNull(context.getCasesTo().get(), "response to");
-        Defense.notNull(context.getCasesFrom().get().getResponse(), "cases from");
-        Defense.notNull(context.getCasesTo().get().getResponse(), "cases to");
-        Defense.notEmpty(context.getCasesFrom().get().getResponse(), "cases from");
-        Defense.notEmpty(context.getCasesTo().get().getResponse(), "cases to");
     }
 }
 

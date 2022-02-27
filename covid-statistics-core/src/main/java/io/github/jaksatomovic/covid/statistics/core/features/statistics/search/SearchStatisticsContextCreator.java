@@ -2,12 +2,7 @@ package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
-import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.Mutable;
 import io.github.jaksatomovic.covid.statistics.core.features.statistics.shared.StatisticsContextCreator;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbCountry;
@@ -19,7 +14,6 @@ import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchStor
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.StatisticsStore;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +26,7 @@ public class SearchStatisticsContextCreator
 {
     private static final String DB_STATISTICS = "dbStatistics";
 
-    private final RapidApiClient rapidApiClient;
-    private final CountryStore   countryStore;
+    private final CountryStore countryStore;
 
     /**
      * Instantiates a new Statistics context creator.
@@ -41,13 +34,11 @@ public class SearchStatisticsContextCreator
      * @param statisticsStore   the statistics store
      * @param searchStore       the search store
      * @param searchResultStore the search result store
-     * @param rapidApiClient    the rapid api client
-     * @param countryStore
+     * @param countryStore      the country store
      */
-    protected SearchStatisticsContextCreator(final StatisticsStore statisticsStore, final SearchStore searchStore, final SearchResultStore searchResultStore, final RapidApiClient rapidApiClient, final CountryStore countryStore)
+    protected SearchStatisticsContextCreator(final StatisticsStore statisticsStore, final SearchStore searchStore, final SearchResultStore searchResultStore, final CountryStore countryStore)
     {
         super(statisticsStore, searchStore, searchResultStore);
-        this.rapidApiClient = Defense.notNull(rapidApiClient, RapidApiClient.class.getSimpleName());
         this.countryStore = Defense.notNull(countryStore, CountryStore.class.getSimpleName());
     }
 
@@ -58,23 +49,22 @@ public class SearchStatisticsContextCreator
 
         Optional<List<DbSearch>> existingOverlappingSearches = Optional.ofNullable(searchStore.getIfOverlapsBy(dbCountry, request.getDateFrom(), request.getDateTo()));
 
-        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(request.getCountry(), request.getDateFrom()));
-        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(request.getCountry(), request.getDateTo()));
-
-        Mutable<DbStatistics> dbStatistics = new Mutable<>(DB_STATISTICS);
+        Mutable<DbStatistics>       dbStatistics = new Mutable<>(DB_STATISTICS);
+        Mutable<GetHistoryResponse> casesFrom    = new Mutable<>("casesFrom");
+        Mutable<GetHistoryResponse> casesTo      = new Mutable<>("casesTo");
 
         return new SearchStatisticsContext()
         {
             @Override
-            public Optional<GetHistoryResponse> getCasesFrom()
+            public Mutable<GetHistoryResponse> getCasesFrom()
             {
-                return Optional.ofNullable(casesFrom);
+                return casesFrom;
             }
 
             @Override
-            public Optional<GetHistoryResponse> getCasesTo()
+            public Mutable<GetHistoryResponse> getCasesTo()
             {
-                return Optional.ofNullable(casesTo);
+                return casesTo;
             }
 
             @Override
@@ -106,26 +96,5 @@ public class SearchStatisticsContextCreator
     private Optional<DbCountry> resolveCountry(final String country)
     {
         return Optional.ofNullable(countryStore.getRepository().getByName(country));
-    }
-
-    private GetHistoryRequest resolveGetHistoryRequest(final String country, final LocalDate date)
-    {
-        GetHistoryRequest getHistoryRequest = new GetHistoryRequest();
-        getHistoryRequest.setCountry(country);
-        getHistoryRequest.setDate(date);
-
-        return getHistoryRequest;
-    }
-
-    private GetHistoryResponse fetchHistoryForDate(final GetHistoryRequest request)
-    {
-        try
-        {
-            return rapidApiClient.fetchHistory(request);
-        }
-        catch (RapidApiException e)
-        {
-            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
-        }
     }
 }

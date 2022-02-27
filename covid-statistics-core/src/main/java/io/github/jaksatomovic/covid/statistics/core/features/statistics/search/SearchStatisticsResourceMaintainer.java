@@ -1,7 +1,12 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.maintainer.ResourceMaintainer;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearchResult;
@@ -13,6 +18,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
+/**
+ * Here we check context for existing searches. If there are any we need to take date_to for each
+ * of them and fetch data for that day. If there are none we process new data normally.
+ * <p>
+ * Since there are so many edge cases with date overlapping I only took usecase when new search
+ * is partly overlapping meaning I only check for date_to values in old searches
+ * ****A1 |------------|A2  -> Old search
+ * B1|--------------------|B2 -> Old search
+ * *************C1|-------------|C2 -> New search
+ * <p>
+ * With this case above dates A2 and B2 are relevant, so we fetch data for those date in order to
+ * create new search result for following dates: A2-C2 nad B2-C2. Results are then processed and saved to db
+ * with search A and B and C pointing to search_result C
+ */
 @Service
 public class SearchStatisticsResourceMaintainer
     implements ResourceMaintainer<SearchStatisticsContext>
@@ -22,22 +43,81 @@ public class SearchStatisticsResourceMaintainer
     private final SearchStore       searchStore;
     private final StatisticsStore   statisticsStore;
     private final SearchResultStore searchResultStore;
+    private final RapidApiClient    rapidApiClient;
 
-    public SearchStatisticsResourceMaintainer(final SearchStore searchStore, final StatisticsStore statisticsStore, final SearchResultStore searchResultStore)
+    /**
+     * Instantiates a new Search statistics resource maintainer.
+     *
+     * @param searchStore       the search store
+     * @param statisticsStore   the statistics store
+     * @param searchResultStore the search result store
+     * @param rapidApiClient    the rapid api client
+     */
+    public SearchStatisticsResourceMaintainer(final SearchStore searchStore, final StatisticsStore statisticsStore, final SearchResultStore searchResultStore, final RapidApiClient rapidApiClient)
     {
         this.searchStore = Defense.notNull(searchStore, SearchStore.class.getSimpleName());
         this.statisticsStore = Defense.notNull(statisticsStore, StatisticsStore.class.getSimpleName());
         this.searchResultStore = Defense.notNull(searchResultStore, SearchResultStore.class.getSimpleName());
+        this.rapidApiClient = Defense.notNull(rapidApiClient, RapidApiClient.class.getSimpleName());
     }
 
     @Override
     public void resolve(final SearchStatisticsContext context)
     {
-        DbSearch dbSearch = handleSearch(context);
-        handleSearchResults(context, dbSearch);
-        handleStatistics(context, dbSearch);
+        DbSearch newSearch = handleSearch(context);
+
+        if (context.getExistingSearches().isPresent())
+        {
+            handleExistingData(context, newSearch);
+        }
+        else
+        {
+            handleNewData(context, newSearch);
+        }
 
         logger.debug("[MAINTAINER] - Search Statistics - [OK]");
+    }
+
+    private void handleExistingData(final SearchStatisticsContext context, final DbSearch newSearch)
+    {
+        handleExistingSearch(newSearch, context);
+        updateExistingSearchResults(newSearch, context);
+    }
+
+    private void handleExistingSearch(final DbSearch newSearch, final SearchStatisticsContext context)
+    {
+        for (DbSearch existingSearch : context.getExistingSearches().get())
+        {
+            handleRapidApiSearch(existingSearch, context);
+            handleNewData(context, newSearch);
+        }
+    }
+
+    private void updateExistingSearchResults(final DbSearch newSearch, final SearchStatisticsContext context)
+    {
+        for (DbSearch existingSearch : context.getExistingSearches().get())
+        {
+            for (DbSearchResult dbSearchResult : existingSearch.getSearchResults())
+            {
+                dbSearchResult.setSearch(newSearch);
+                searchResultStore.saveEntity(dbSearchResult);
+            }
+        }
+    }
+
+    private void handleRapidApiSearch(final DbSearch existingSearch, final SearchStatisticsContext context)
+    {
+        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), existingSearch.getDateTo()));
+        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), context.getOriginalRequest().getDateTo()));
+
+        context.getCasesFrom().setValue(casesFrom);
+        context.getCasesTo().setValue(casesTo);
+    }
+
+    private void handleNewData(final SearchStatisticsContext context, final DbSearch dbSearch)
+    {
+        handleSearchResults(context, dbSearch);
+        handleStatistics(context, dbSearch);
     }
 
     private DbSearch handleSearch(final SearchStatisticsContext context)
@@ -58,8 +138,8 @@ public class SearchStatisticsResourceMaintainer
     {
         DbSearchResult dbSearchResult = new DbSearchResult();
 
-        GetHistoryResponse.Cases casesFrom = context.getCasesFrom().get().getResponse().iterator().next().getCases();
-        GetHistoryResponse.Cases casesTo   = context.getCasesTo().get().getResponse().iterator().next().getCases();
+        GetHistoryResponse.Cases casesFrom = context.getCasesFrom().getValue().getResponse().iterator().next().getCases();
+        GetHistoryResponse.Cases casesTo   = context.getCasesTo().getValue().getResponse().iterator().next().getCases();
 
         dbSearchResult.setSearch(dbSearch);
         dbSearchResult.setActiveCases(calculateDifference(casesFrom.getActive(), casesTo.getActive()));
@@ -76,8 +156,8 @@ public class SearchStatisticsResourceMaintainer
     {
         DbStatistics dbStatistics = new DbStatistics();
 
-        GetHistoryResponse.Cases casesFrom = context.getCasesFrom().get().getResponse().iterator().next().getCases();
-        GetHistoryResponse.Cases casesTo   = context.getCasesTo().get().getResponse().iterator().next().getCases();
+        GetHistoryResponse.Cases casesFrom = context.getCasesFrom().getValue().getResponse().iterator().next().getCases();
+        GetHistoryResponse.Cases casesTo   = context.getCasesTo().getValue().getResponse().iterator().next().getCases();
 
         dbStatistics.setSearch(dbSearch);
         dbStatistics.setActiveCases(calculatePercentage(casesFrom.getActive(), casesTo.getActive()));
@@ -108,5 +188,26 @@ public class SearchStatisticsResourceMaintainer
     private Long calculateDifference(final long startValue, final long finalValue)
     {
         return finalValue - startValue;
+    }
+
+    private GetHistoryRequest resolveGetHistoryRequest(final String country, final LocalDate date)
+    {
+        GetHistoryRequest getHistoryRequest = new GetHistoryRequest();
+        getHistoryRequest.setCountry(country);
+        getHistoryRequest.setDate(date);
+
+        return getHistoryRequest;
+    }
+
+    private GetHistoryResponse fetchHistoryForDate(final GetHistoryRequest request)
+    {
+        try
+        {
+            return rapidApiClient.fetchHistory(request);
+        }
+        catch (RapidApiException e)
+        {
+            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
+        }
     }
 }
