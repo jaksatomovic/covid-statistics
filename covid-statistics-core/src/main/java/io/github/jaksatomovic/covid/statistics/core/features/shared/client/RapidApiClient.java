@@ -38,26 +38,19 @@ public class RapidApiClient
             @Override
             public GetCountriesResponse execute(final GetCountriesRequest request)
             {
-                logger.info("External Countries fetch - request: {}", request);
+                logger.info("External Countries fetch");
 
                 String url = "https://covid-193.p.rapidapi.com/countries";
-
-                validateGetCountriesRequest(request);
 
                 ResponseEntity<GetCountriesResponse> result = getRestTemplate().exchange(
                     url,
                     HttpMethod.GET,
-                    createHttpRequest(request, fillHeader()),
+                    createHttpRequest(null, fillHeader()),
                     GetCountriesResponse.class
                 );
 
                 logger.info("External Countries fetched - response: {}", result.getBody());
                 return result.getBody();
-            }
-
-            private void validateGetCountriesRequest(GetCountriesRequest request)
-            {
-                Defense.notNull(request, "GetCountriesRequest");
             }
         });
     }
@@ -143,7 +136,7 @@ public class RapidApiClient
     @Override
     HttpHeaders fillHeader()
     {
-        // TODO [JT] application properties
+        // TODO [JT] application properties & extract constant
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-rapidapi-host", "covid-193.p.rapidapi.com");
         headers.add("x-rapidapi-key", "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e");
