@@ -1,96 +1,89 @@
-# covid-statistics-app
+# COVID STATISTICS APP
 
 Get statistics for all countries about COVID-19
+Fetch them by:
+- DateRange [Date From - Date To] (required fields)
+- Country (required field)
 
-## Postman Collection
-    
- - see postman folder
+## API
 
-## Getting started
+In order to test application easy we have swagger-ui and postman collections (one for rapid api and one for application itself.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+| File                   | PATH                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| Rapid Collection       | [postman/COVID-19-API.json][PlRApi]                                  |
+| Application Collection | [postman/COVID-19-APLICATION.json][PlApp]                            |
+| Swagger UI             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Tech
 
-## Add your files
+Technologies used while developing are
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- Spring Boot running on Java 8
+- Postgres
+- Liquibase
+- H2 - Used for tests only
+- Git
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/canarin/covid-statistics-app.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/canarin/covid-statistics-app/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [x] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+And of course Application itself is open source with a [public repository][dill]
+on GitLab.
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Application requires Postgres Database and Java 8 to run.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Enter the postgres shell and create database using following commands.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```sh
+psql
+create database covid_statistics;
+create user covid_statistics with login encrypted password 'covid_statistics';
+grant all privileges on database covid_statistics to covid_statistics;
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Application will take care of the rest once it is started. 
+Just open app in preferred IDE and start it
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Development
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Application is multimodule project which consists of
+- covid-statistics-api
+- covid-statistics-commons
+- covid-statistics-web
+- covid-statistics-core
+
+All business logic is located inside covid-statistics-core module.
+Idea behind structure inside core module is package-by-feature.
+
+Each operation goes through series of steps:
+1. Request validation - check if all required fields are set
+2. Context creation - creation of context that contain all the needed data for next phases of the flow
+3. Preconditions validation - each operation has a certain preconditions that need to be valid
+4. Resource provisioning - changing the state of the resource
+5. Response generation - generation of the response based on provided context
+
+## TODO
+
+- [ ] Add JWT
+- [ ] RapidApi Properties
+- [ ] Implement Table Mapping
+- [ ] Documentation
+- [ ] Increase Test Coverage
+- [ ] Add H2 for tests
+- [ ] Extract RapidApi Client into separate module
+- [ ] Cleanup & Refactor
+
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+MIT
+
+**Free Software, Hell Yeah!**
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+[git-repo-url]: <https://github.com/joemccann/dillinger.git>
+
+[PlRApi]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
+[PlApp]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
