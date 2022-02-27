@@ -4,8 +4,10 @@ import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetCountriesRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetCountriesResponse;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetStatisticsResponse;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @author Jakša Tomović
  * @since 1.0
  */
+// TODO [JT] move whole client to separate module
 @Service
 public class RapidApiClient
     extends BaseClient
@@ -55,6 +58,44 @@ public class RapidApiClient
             private void validateGetCountriesRequest(GetCountriesRequest request)
             {
                 Defense.notNull(request, "GetCountriesRequest");
+            }
+        });
+    }
+
+    public GetStatisticsResponse fetchStatistics(final GetStatisticsRequest request)
+        throws RapidApiException
+    {
+        return secureExecute(new Executor<GetStatisticsRequest, GetStatisticsResponse>()
+        {
+            @Override
+            public GetStatisticsRequest getRequest()
+            {
+                return request;
+            }
+
+            @Override
+            public GetStatisticsResponse execute(final GetStatisticsRequest request)
+            {
+                logger.info("GET Statistics - request: {}", request);
+
+                String url = "https://covid-193.p.rapidapi.com/statistics";
+
+                validateGetStatisticsRequest(request);
+
+                ResponseEntity<GetStatisticsResponse> result = getRestTemplate().exchange(
+                    url,
+                    HttpMethod.GET,
+                    createHttpRequest(request, fillHeader()),
+                    GetStatisticsResponse.class
+                );
+
+                logger.info("GET Statistics - response: {}", result.getBody());
+                return result.getBody();
+            }
+
+            private void validateGetStatisticsRequest(GetStatisticsRequest request)
+            {
+                Defense.notNull(request, "GetStatisticsRequest");
             }
         });
     }
@@ -102,7 +143,7 @@ public class RapidApiClient
     @Override
     HttpHeaders fillHeader()
     {
-        // TODO application properties
+        // TODO [JT] application properties
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-rapidapi-host", "covid-193.p.rapidapi.com");
         headers.add("x-rapidapi-key", "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e");

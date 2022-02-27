@@ -40,7 +40,7 @@ public class SearchStore
         return DbSearch.class;
     }
 
-    // TODO Refactor fields
+    // TODO [JT] Refactor fields
     public List<DbSearch> getIfOverlapsBy(final Optional<DbCountry> country, final LocalDate dateFrom, final LocalDate dateTo)
     {
         return execute(entityManager ->
@@ -57,10 +57,11 @@ public class SearchStore
 
             predicates.add(
                 builder.and(
-                    builder.lessThan(root.get("dateTo").as(LocalDate.class), dateFrom),
-                    builder.greaterThan(root.get("dateFrom").as(LocalDate.class), dateFrom)));
+                    builder.greaterThan(root.get("dateTo").as(LocalDate.class), dateFrom),
+                    builder.lessThan(root.get("dateTo").as(LocalDate.class), dateTo)));
 
-            predicates.add(builder.greaterThan(root.get("dateTo").as(LocalDate.class), dateTo));
+            predicates.add(
+                builder.lessThanOrEqualTo(root.get("dateFrom").as(LocalDate.class), dateFrom));
 
             return (entityManager.createQuery(query.select(root).where(clause(predicates))).getResultList());
         });

@@ -1,5 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
+import io.github.jaksatomovic.commons.api.validation.Check;
 import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
@@ -66,13 +67,13 @@ public class SearchStatisticsResourceMaintainer
     {
         DbSearch newSearch = handleSearch(context);
 
-        if (context.getExistingSearches().isPresent())
+        if (context.getExistingSearches().isPresent() && Check.notEmpty(context.getExistingSearches().get()))
         {
             handleExistingData(context, newSearch);
         }
         else
         {
-            handleNewData(context, newSearch);
+            handleNewSearch(context, newSearch);
         }
 
         logger.debug("[MAINTAINER] - Search Statistics - [OK]");
@@ -88,7 +89,7 @@ public class SearchStatisticsResourceMaintainer
     {
         for (DbSearch existingSearch : context.getExistingSearches().get())
         {
-            handleRapidApiSearch(existingSearch, context);
+            handleRapidApiSearchForExistingData(existingSearch, context);
             handleNewData(context, newSearch);
         }
     }
@@ -105,19 +106,50 @@ public class SearchStatisticsResourceMaintainer
         }
     }
 
-    private void handleRapidApiSearch(final DbSearch existingSearch, final SearchStatisticsContext context)
+    private void handleNewSearch(final SearchStatisticsContext context, final DbSearch dbSearch)
     {
-        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), existingSearch.getDateTo()));
-        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), context.getOriginalRequest().getDateTo()));
-
-        context.getCasesFrom().setValue(casesFrom);
-        context.getCasesTo().setValue(casesTo);
+        handleRapidApiSearchForNewData(dbSearch, context);
+        handleNewData(context, dbSearch);
     }
 
     private void handleNewData(final SearchStatisticsContext context, final DbSearch dbSearch)
     {
         handleSearchResults(context, dbSearch);
         handleStatistics(context, dbSearch);
+    }
+
+    private void handleRapidApiSearchForExistingData(final DbSearch existingSearch, final SearchStatisticsContext context)
+    {
+        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), existingSearch.getDateTo()));
+        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), context.getOriginalRequest().getDateTo()));
+
+        handleResponse(context, casesFrom, casesTo);
+    }
+
+    private void handleRapidApiSearchForNewData(final DbSearch newSearch, final SearchStatisticsContext context)
+    {
+        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateFrom()));
+        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateTo()));
+
+        handleResponse(context, casesFrom, casesTo);
+    }
+
+    private void handleResponse(final SearchStatisticsContext context, final GetHistoryResponse casesFrom, final GetHistoryResponse casesTo)
+    {
+        validateResponse(casesFrom, casesTo);
+
+        context.getCasesFrom().setValue(casesFrom);
+        context.getCasesTo().setValue(casesTo);
+    }
+
+    private void validateResponse(final GetHistoryResponse casesFrom, final GetHistoryResponse casesTo)
+    {
+        Defense.notNull(casesFrom, "casesFrom");
+        Defense.notNull(casesTo, "casesTo");
+        Defense.notNull(casesFrom.getResponse(), "casesFrom response");
+        Defense.notNull(casesTo.getResponse(), "casesTo response");
+        Defense.notEmpty(casesFrom.getResponse(), "response");
+        Defense.notEmpty(casesTo.getResponse(), "response");
     }
 
     private DbSearch handleSearch(final SearchStatisticsContext context)
