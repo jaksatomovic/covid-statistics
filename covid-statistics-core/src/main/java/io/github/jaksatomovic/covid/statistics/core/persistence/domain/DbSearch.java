@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -56,7 +55,8 @@ public class DbSearch
     private LocalDate dateTo;
 
     @OneToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    @JoinColumn (name = "country_id",
+                 referencedColumnName = "id")
     private DbCountry country;
 
     @OneToMany (fetch = FetchType.EAGER,
@@ -181,5 +181,54 @@ public class DbSearch
     public void setId(final Long id)
     {
         this.id = id;
+    }
+
+    public enum DbSearchMapping
+        implements TableMapping
+    {
+
+        ID("id", "id"),
+
+        DATE_FROM("dateFrom", "date_from"),
+
+        DATE_TO("dateTo", "date_to"),
+
+        COUNTRY("country", "country");
+
+        private final String field;
+        private final String column;
+
+        DbSearchMapping(String field, String column)
+        {
+            this.field = field;
+            this.column = column;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String getField()
+        {
+            return this.field;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String getColumn()
+        {
+            return this.column;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString()
+        {
+            return String.format("%s::[field=%s, column=%s]", name(), getField(), getColumn());
+        }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.web;
 
 import io.github.jaksatomovic.covid.statistics.core.configuration.properties.DatabaseProperties;
+import io.github.jaksatomovic.covid.statistics.core.configuration.properties.RapidApiProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -11,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootApplication (scanBasePackages = "io.github.jaksatomovic")
 @EnableJpaRepositories (basePackages = "io.github.jaksatomovic.covid.statistics.core.persistence.repository")
-@EnableConfigurationProperties ({DatabaseProperties.class, LiquibaseProperties.class})
+@EnableConfigurationProperties ({DatabaseProperties.class, LiquibaseProperties.class, RapidApiProperties.class})
 public class CovidStatisticsAppApplication
 {
 

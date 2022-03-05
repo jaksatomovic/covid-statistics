@@ -22,7 +22,6 @@ Technologies used while developing are
 - Spring Boot running on Java 8
 - Postgres
 - Liquibase
-- H2 - Used for tests only
 - Git
 
 And of course Application itself is open source with a [public repository][dill]

@@ -1,6 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
 import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.core.configuration.properties.RapidApiProperties;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetCountriesRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
@@ -23,6 +24,16 @@ import org.springframework.stereotype.Service;
 public class RapidApiClient
     extends BaseClient
 {
+
+    private static final String RAPIDAPI_HOST_HEADER_KEYWORD = "x-rapidapi-host";
+    private static final String RAPIDAPI_KEY_HEADER_KEYWORD  = "x-rapidapi-key";
+
+    private final RapidApiProperties properties;
+
+    public RapidApiClient(final RapidApiProperties properties)
+    {
+        this.properties = Defense.notNull(properties, RapidApiProperties.class.getSimpleName());
+    }
 
     public GetCountriesResponse fetchCountries(final GetCountriesRequest request)
         throws RapidApiException
@@ -136,10 +147,9 @@ public class RapidApiClient
     @Override
     HttpHeaders fillHeader()
     {
-        // TODO [JT] application properties & extract constant
         HttpHeaders headers = new HttpHeaders();
-        headers.add("x-rapidapi-host", "covid-193.p.rapidapi.com");
-        headers.add("x-rapidapi-key", "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e");
+        headers.add(RAPIDAPI_HOST_HEADER_KEYWORD, properties.getHost());
+        headers.add(RAPIDAPI_KEY_HEADER_KEYWORD, properties.getKey());
         return headers;
     }
 }

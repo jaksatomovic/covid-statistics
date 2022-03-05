@@ -11,10 +11,22 @@ import io.github.jaksatomovic.commons.api.model.ApiEntity;
 public class Statistics
     extends ApiEntity
 {
-    private Double  newCases;
-    private Double  activeCases;
+    private Double newCases;
+    private Double activeCases;
     private Double criticalCases;
     private Double recoveredCases;
+
+    public Statistics()
+    {
+    }
+
+    public Statistics(final Double newCases, final Double activeCases, final Double criticalCases, final Double recoveredCases)
+    {
+        this.newCases = newCases;
+        this.activeCases = activeCases;
+        this.criticalCases = criticalCases;
+        this.recoveredCases = recoveredCases;
+    }
 
     /**
      * Gets new cases.
