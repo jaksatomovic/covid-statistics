@@ -27,6 +27,10 @@ public class RapidApiClient
 
     private static final String RAPIDAPI_HOST_HEADER_KEYWORD = "x-rapidapi-host";
     private static final String RAPIDAPI_KEY_HEADER_KEYWORD  = "x-rapidapi-key";
+    private static final String RAPID_API_BASE_URL           = "https://covid-193.p.rapidapi.com";
+    private static final String HISTORY_URL                  = RAPID_API_BASE_URL + "/history";
+    private static final String COUNTRIES_URL                = RAPID_API_BASE_URL + "/countries";
+    private static final String STATISTICS_URL               = RAPID_API_BASE_URL + "/statistics";
 
     private final RapidApiProperties properties;
 
@@ -51,7 +55,7 @@ public class RapidApiClient
             {
                 logger.info("External Countries fetch");
 
-                String url = "https://covid-193.p.rapidapi.com/countries";
+                String url = COUNTRIES_URL;
 
                 ResponseEntity<GetCountriesResponse> result = getRestTemplate().exchange(
                     url,
@@ -82,7 +86,7 @@ public class RapidApiClient
             {
                 logger.info("GET Statistics - request: {}", request);
 
-                String url = "https://covid-193.p.rapidapi.com/statistics";
+                String url = STATISTICS_URL;
 
                 validateGetStatisticsRequest(request);
 
@@ -120,7 +124,7 @@ public class RapidApiClient
             {
                 logger.info("GET History - request: {}", request);
 
-                String url = "https://covid-193.p.rapidapi.com/history?country=" + request.getCountry().toLowerCase() + "&day=" + request.getDate().toString();
+                String url = HISTORY_URL + "?country=" + request.getCountry().toLowerCase() + "&day=" + request.getDate().toString();
 
                 validateGetHistoryRequest(request);
 

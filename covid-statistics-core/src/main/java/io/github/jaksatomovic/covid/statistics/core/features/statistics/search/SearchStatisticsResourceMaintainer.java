@@ -2,12 +2,9 @@ package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
 import io.github.jaksatomovic.commons.api.validation.Check;
 import io.github.jaksatomovic.commons.api.validation.Defense;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
-import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
+import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiHandler;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
-import io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception.RapidApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.maintainer.ResourceMaintainer;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearchResult;
@@ -44,7 +41,7 @@ public class SearchStatisticsResourceMaintainer
     private final SearchStore       searchStore;
     private final StatisticsStore   statisticsStore;
     private final SearchResultStore searchResultStore;
-    private final RapidApiClient    rapidApiClient;
+    private final RapidApiHandler   rapidApiHandler;
 
     /**
      * Instantiates a new Search statistics resource maintainer.
@@ -52,14 +49,14 @@ public class SearchStatisticsResourceMaintainer
      * @param searchStore       the search store
      * @param statisticsStore   the statistics store
      * @param searchResultStore the search result store
-     * @param rapidApiClient    the rapid api client
+     * @param rapidApiHandler   the rapid api handler
      */
-    public SearchStatisticsResourceMaintainer(final SearchStore searchStore, final StatisticsStore statisticsStore, final SearchResultStore searchResultStore, final RapidApiClient rapidApiClient)
+    public SearchStatisticsResourceMaintainer(final SearchStore searchStore, final StatisticsStore statisticsStore, final SearchResultStore searchResultStore, final RapidApiHandler rapidApiHandler)
     {
         this.searchStore = Defense.notNull(searchStore, SearchStore.class.getSimpleName());
         this.statisticsStore = Defense.notNull(statisticsStore, StatisticsStore.class.getSimpleName());
         this.searchResultStore = Defense.notNull(searchResultStore, SearchResultStore.class.getSimpleName());
-        this.rapidApiClient = Defense.notNull(rapidApiClient, RapidApiClient.class.getSimpleName());
+        this.rapidApiHandler = Defense.notNull(rapidApiHandler, RapidApiHandler.class.getSimpleName());
     }
 
     @Override
@@ -120,16 +117,20 @@ public class SearchStatisticsResourceMaintainer
 
     private void handleRapidApiSearchForExistingData(final DbSearch existingSearch, final SearchStatisticsContext context)
     {
-        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), existingSearch.getDateTo()));
-        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), context.getOriginalRequest().getDateTo()));
+        GetHistoryResponse casesFrom = rapidApiHandler.fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry()
+                                                                                                           .get()
+                                                                                                           .getName()
+                                                                                                           .toLowerCase(), existingSearch.getDateTo()));
+        GetHistoryResponse casesTo = rapidApiHandler.fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), context.getOriginalRequest()
+                                                                                                                                                             .getDateTo()));
 
         handleResponse(context, casesFrom, casesTo);
     }
 
     private void handleRapidApiSearchForNewData(final DbSearch newSearch, final SearchStatisticsContext context)
     {
-        GetHistoryResponse casesFrom = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateFrom()));
-        GetHistoryResponse casesTo   = fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateTo()));
+        GetHistoryResponse casesFrom = rapidApiHandler.fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateFrom()));
+        GetHistoryResponse casesTo   = rapidApiHandler.fetchHistoryForDate(resolveGetHistoryRequest(context.getCountry().get().getName().toLowerCase(), newSearch.getDateTo()));
 
         handleResponse(context, casesFrom, casesTo);
     }
@@ -229,17 +230,5 @@ public class SearchStatisticsResourceMaintainer
         getHistoryRequest.setDate(date);
 
         return getHistoryRequest;
-    }
-
-    private GetHistoryResponse fetchHistoryForDate(final GetHistoryRequest request)
-    {
-        try
-        {
-            return rapidApiClient.fetchHistory(request);
-        }
-        catch (RapidApiException e)
-        {
-            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
-        }
     }
 }

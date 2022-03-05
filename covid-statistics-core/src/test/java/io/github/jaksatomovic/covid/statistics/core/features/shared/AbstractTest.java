@@ -176,29 +176,6 @@ public class AbstractTest
         };
     }
 
-    protected GetHistoryResponse prepareGetHistoryResponse()
-    {
-        GetHistoryResponse                getHistoryResponse = new GetHistoryResponse();
-        List<GetHistoryResponse.Response> responses          = new ArrayList<>();
-        GetHistoryResponse.Response       response           = new GetHistoryResponse.Response();
-
-        GetHistoryResponse.Cases cases = new GetHistoryResponse.Cases();
-
-        cases.setNewCases("100");
-        cases.setActive(100);
-        cases.setCritical(100);
-        cases.setRecovered(100);
-        cases.setOneMPopulation("100");
-        cases.setTotal(100);
-
-        response.setCases(cases);
-
-        responses.set(0, response);
-
-        getHistoryResponse.setResponse(responses);
-        return getHistoryResponse;
-    }
-
     private DbStatistics prepareDbStatistics()
     {
         DbStatistics dbStatistics = new DbStatistics();

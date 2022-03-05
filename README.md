@@ -24,7 +24,7 @@ Technologies used while developing are
 - Liquibase
 - Git
 
-And of course Application itself is open source with a [public repository][dill]
+And of course Application itself is open source with a [public repository][git-repo-url]
 on GitLab.
 
 ## Installation
@@ -65,12 +65,12 @@ Each operation goes through series of steps:
 ## TODO
 
 - [ ] Add JWT
-- [ ] RapidApi Properties
-- [ ] Implement Table Mapping
-- [ ] Documentation
+- [x] RapidApi Properties
+- [x] Implement Table Mapping
+- [x] Documentation
 - [ ] Increase Test Coverage
 - [ ] Add H2 for tests
-- [ ] Extract RapidApi Client into separate module
+- [ ] Extract RapidApiClient into separate module
 - [ ] Cleanup & Refactor
 
 
