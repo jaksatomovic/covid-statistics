@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-@RequestMapping ("/cleanup")
+@RequestMapping ("/api/cleanup")
 @Api (value = "COVID-19 Cleanup Service")
 public class CleanupController
 {

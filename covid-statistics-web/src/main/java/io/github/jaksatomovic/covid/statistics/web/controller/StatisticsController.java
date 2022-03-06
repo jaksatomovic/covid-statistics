@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * @since 1.0
  */
 @RestController
-@RequestMapping ("/statistics")
+@RequestMapping ("/api/statistics")
 @Api (value = "COVID-19 Statistics Service")
 public class StatisticsController
 {

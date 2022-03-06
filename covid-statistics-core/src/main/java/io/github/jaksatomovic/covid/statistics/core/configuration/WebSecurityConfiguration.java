@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,6 +37,11 @@ public class WebSecurityConfiguration
         return super.authenticationManagerBean();
     }
 
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/covid-statistics/token/generate");
+    }
+
     @Bean
     public JwtAuthenticationFilter authenticationTokenFilterBean()
     {
@@ -47,8 +53,8 @@ public class WebSecurityConfiguration
         throws Exception
     {
         http.cors().and().csrf().disable().
-            authorizeRequests()
-            .antMatchers("/covid-statistics/token/*").permitAll()
+            authorizeRequests()//
+            .antMatchers("/covid-statistics/token/generate").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -62,5 +68,4 @@ public class WebSecurityConfiguration
     {
         return new BCryptPasswordEncoder();
     }
-
 }
