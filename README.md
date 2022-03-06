@@ -83,6 +83,6 @@ Each operation goes through series of steps:
 
 [git-repo-url]: <https://github.com/jaksatomovic/covid-statistics>
 
-[PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
-[PlAppJWT]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
-[PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
+[PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/postman>
+[PlAppJWT]: <https://github.com/jaksatomovic/covid-statistics/tree/main/postman>
+[PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/postman>
