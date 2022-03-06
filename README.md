@@ -7,13 +7,16 @@ Fetch them by:
 
 ## API
 
-In order to test application easy we have swagger-ui and postman collections (one for rapid api and one for application itself.
+In order to test application easy we have swagger-ui and postman collections (one for rapid api and one for application itself).
 
-| File                   | PATH                                                                 |
-|------------------------|----------------------------------------------------------------------|
-| Rapid Collection       | [postman/COVID-19-API.json][PlRApi]                                  |
-| Application Collection | [postman/COVID-19-APLICATION.json][PlApp]                            |
-| Swagger UI             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
+| File                                                   | PATH                                                                 |
+|--------------------------------------------------------|----------------------------------------------------------------------|
+| Rapid Collection                                       | [postman/COVID-19-API.json][PlRApi]                                  |
+| Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlApp]                            |
+| Swagger UI                                             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
+
+*** There is branch called feature/JWT. Here you will quick and hardcoded implementation for jwt authentication (Postman Collection supports it)
+On master branch there is no JWT auth and application  can be tested with SWAGGER UI. Also, you can use it with postman by setting Authorization to none (token/generate endpoint not supported) 
 
 ## Tech
 
@@ -44,6 +47,7 @@ Application will take care of the rest once it is started.
 Just open app in preferred IDE and start it
 
 
+
 ## Development
 
 Application is multimodule project which consists of
@@ -64,7 +68,7 @@ Each operation goes through series of steps:
 
 ## TODO
 
-- [ ] Add JWT
+- [x] Add JWT
 - [x] RapidApi Properties
 - [x] Implement Table Mapping
 - [x] Documentation
@@ -74,11 +78,6 @@ Each operation goes through series of steps:
 - [ ] Cleanup & Refactor
 
 
-## License
-
-MIT
-
-**Free Software, Hell Yeah!**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
