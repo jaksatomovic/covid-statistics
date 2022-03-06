@@ -81,7 +81,7 @@ Each operation goes through series of steps:
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-[git-repo-url]: <https://github.com/joemccann/dillinger.git>
+[git-repo-url]: <https://github.com/jaksatomovic/covid-statistics>
 
-[PlRApi]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-[PlApp]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
+[PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/rapidapi.postman_collection.json>
+[PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/application.postman_collection.json>
