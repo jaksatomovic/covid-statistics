@@ -12,8 +12,8 @@ In order to test application easy we have swagger-ui and postman collections (on
 | File                                                   | PATH                                                                 |
 |--------------------------------------------------------|----------------------------------------------------------------------|
 | Rapid Collection                                       | [postman/COVID-19-API.json][PlRApi]                                  |
-| Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlAppJWT]                         |
-| Application Collection                                 | [postman/COVID-19-APLICATION.json][PlApp]                            |
+| Application Collection (with JWT) branch - feature/JWT | [postman/application-jwt.json][PlAppJWT]                             |
+| Application Collection                                 | [postman/application.json][PlApp]                                    |
 | Swagger UI                                             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
 
 *** There is branch called feature/JWT. Here you will find quick and hardcoded implementation for jwt authentication but it is not finished yet.
@@ -83,6 +83,6 @@ Each operation goes through series of steps:
 
 [git-repo-url]: <https://github.com/jaksatomovic/covid-statistics>
 
-[PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/rapidapi.postman_collection.json>
-[PlAppJWT]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/application-jwt.postman_collection.json>
-[PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/application.postman_collection.json>
+[PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
+[PlAppJWT]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
+[PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/>
