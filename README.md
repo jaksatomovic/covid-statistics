@@ -30,6 +30,9 @@ Technologies used while developing are
 And of course Application itself is open source with a [public repository][git-repo-url]
 on GitLab.
 
+If you have issues with commons-api lib: https://github.com/jaksatomovic/commons-api
+jar file in include inside folder lib/ 
+
 ## Installation
 
 Application requires Postgres Database and Java 8 to run.
