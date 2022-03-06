@@ -35,6 +35,6 @@ public class UpdateCountriesJob
     public void process()
         throws ApiException
     {
-        updateCountriesOperation.execute(new UpdateCountriesRequest());
+//        updateCountriesOperation.execute(new UpdateCountriesRequest());
     }
 }
