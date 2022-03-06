@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "643c1115-1f0a-4786-8458-f3b6fc3be603",
+		"name": "COVID-19 APLICATION JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"USERNAME\",\n    \"password\":\"PASSWORD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9017/covid-statistics/token/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9017",
+					"path": [
+						"covid-statistics",
+						"token",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Statistics",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVU0VSTkFNRSIsInNjb3BlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaXNzIjoiaHR0cDovL2lvLmdpdGh1Yi5qYWtzYXRvbW92aWMiLCJpYXQiOjE2NDY1NjE3MjQsImV4cCI6MTY0NjU3OTcyNH0.0xgbl9cmORS83yb8F--A2Z04TlOaBXh1kxgDgCKlLRQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9017/covid-statistics/statistics?country=Croatia&dateFrom=2022-01-01&dateTo=2022-02-02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9017",
+					"path": [
+						"covid-statistics",
+						"statistics"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Croatia"
+						},
+						{
+							"key": "dateFrom",
+							"value": "2022-01-01"
+						},
+						{
+							"key": "dateTo",
+							"value": "2022-02-02"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "x-rapidapi-host",
+			"value": "covid-193.p.rapidapi.com",
+			"type": "string"
+		},
+		{
+			"key": "x-rapidapi-key",
+			"value": "cfa175a786mshb2b747bdc65bf35p1723f0jsn20ebc1cdec4e",
+			"type": "string"
+		}
+	]
+}

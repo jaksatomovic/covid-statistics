@@ -12,11 +12,11 @@ In order to test application easy we have swagger-ui and postman collections (on
 | File                                                   | PATH                                                                 |
 |--------------------------------------------------------|----------------------------------------------------------------------|
 | Rapid Collection                                       | [postman/COVID-19-API.json][PlRApi]                                  |
+| Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlAppJWT]                         |
 | Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlApp]                            |
 | Swagger UI                                             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
 
-*** There is branch called feature/JWT. Here you will quick and hardcoded implementation for jwt authentication (Postman Collection supports it)
-On master branch there is no JWT auth and application  can be tested with SWAGGER UI. Also, you can use it with postman by setting Authorization to none (token/generate endpoint not supported) 
+*** There is branch called feature/JWT. Here you will find quick and hardcoded implementation for jwt authentication but it is not finished yet.
 
 ## Tech
 
@@ -68,7 +68,7 @@ Each operation goes through series of steps:
 
 ## TODO
 
-- [x] Add JWT
+- [ ] Add JWT
 - [x] RapidApi Properties
 - [x] Implement Table Mapping
 - [x] Documentation
@@ -84,4 +84,5 @@ Each operation goes through series of steps:
 [git-repo-url]: <https://github.com/jaksatomovic/covid-statistics>
 
 [PlRApi]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/rapidapi.postman_collection.json>
+[PlAppJWT]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/application-jwt.postman_collection.json>
 [PlApp]: <https://github.com/jaksatomovic/covid-statistics/tree/main/covid-statistics-api/postman/application.postman_collection.json>
