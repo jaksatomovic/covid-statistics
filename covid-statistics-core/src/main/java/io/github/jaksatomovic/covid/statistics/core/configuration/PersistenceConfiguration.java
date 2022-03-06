@@ -2,7 +2,7 @@ package io.github.jaksatomovic.covid.statistics.core.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.commons.utility.CovidStatisticsServiceException;
 import io.github.jaksatomovic.covid.statistics.core.configuration.properties.DatabaseProperties;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbEntity;

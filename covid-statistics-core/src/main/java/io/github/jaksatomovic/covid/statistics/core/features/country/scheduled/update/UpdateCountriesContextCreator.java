@@ -1,9 +1,9 @@
 package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update;
 
-import io.github.jaksatomovic.commons.api.validation.Check;
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Check;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.country.shared.context.CountryContextCreator;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiClient;
@@ -104,7 +104,7 @@ public class UpdateCountriesContextCreator
         }
         catch (RapidApiException e)
         {
-            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
+            throw new AppException(ApplicationResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
         }
     }
 

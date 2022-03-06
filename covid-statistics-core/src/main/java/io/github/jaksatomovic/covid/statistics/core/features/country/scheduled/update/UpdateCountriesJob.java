@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UpdateCountriesJob
     /**
      * Process.
      */
-//    @Scheduled (cron = "0 * * * * *")
+    //    @Scheduled (cron = "0 * * * * *")
     @Scheduled (cron = "0 */1 * ? * *")
     public void process()
         throws ApiException

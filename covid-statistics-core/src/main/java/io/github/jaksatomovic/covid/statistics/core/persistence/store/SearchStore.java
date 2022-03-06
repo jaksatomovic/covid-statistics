@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.persistence.store;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbCountry;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
 import io.github.jaksatomovic.covid.statistics.core.persistence.repository.SearchRepository;

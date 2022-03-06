@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
@@ -30,7 +30,7 @@ public class RapidApiHandler
         }
         catch (RapidApiException e)
         {
-            throw new AppException(ResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
+            throw new AppException(ApplicationResponseCode.HTTP_CLIENT_EXCEPTION, e.getMessage());
         }
     }
 }

@@ -1,8 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.AbstractTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

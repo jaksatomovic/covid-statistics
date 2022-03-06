@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.cleanup.shared;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.ContextCreator;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.OperationContext;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchStore;

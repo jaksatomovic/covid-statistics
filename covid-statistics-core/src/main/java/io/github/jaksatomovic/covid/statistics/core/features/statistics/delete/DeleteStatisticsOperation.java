@@ -1,8 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.delete;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.operation.MainOperation;
 import org.springframework.stereotype.Service;
 

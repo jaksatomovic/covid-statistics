@@ -1,8 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.core.features.cleanup;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.operation.MainOperation;
 import org.springframework.stereotype.Service;
 

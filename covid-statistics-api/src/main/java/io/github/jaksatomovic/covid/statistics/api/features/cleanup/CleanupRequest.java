@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.api.features.cleanup;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
 
 /**
  * The type Update country request.

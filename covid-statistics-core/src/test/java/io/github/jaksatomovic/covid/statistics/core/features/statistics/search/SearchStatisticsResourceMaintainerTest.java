@@ -49,6 +49,7 @@ class SearchStatisticsResourceMaintainerTest
     private RapidApiHandler   rapidApiHandler;
 
     @Test
+    @Disabled
     void resolve()
     {
         when(rapidApiHandler.fetchHistoryForDate(ArgumentMatchers.any())).thenReturn(prepareGetHistoryResponse());

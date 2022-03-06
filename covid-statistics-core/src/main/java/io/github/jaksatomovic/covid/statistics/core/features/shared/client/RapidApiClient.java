@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.configuration.properties.RapidApiProperties;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetCountriesRequest;

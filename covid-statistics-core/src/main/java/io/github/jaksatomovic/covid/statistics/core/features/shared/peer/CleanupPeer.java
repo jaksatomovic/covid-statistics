@@ -1,9 +1,9 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.peer;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupResponse;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupService;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.cleanup.CleanupOperation;
 import org.springframework.stereotype.Service;

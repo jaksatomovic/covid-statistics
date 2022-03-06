@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.validator.request;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.validator.Validator;
 
 /**

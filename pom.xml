@@ -104,11 +104,11 @@
         <dependencies>
 
             <!-- COMMONS API -->
-            <dependency>
-                <groupId>io.github.jaksatomovic</groupId>
-                <artifactId>commons-api</artifactId>
-                <version>${commons.api.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.jaksatomovic</groupId>-->
+<!--                <artifactId>commons-api</artifactId>-->
+<!--                <version>${commons.api.version}</version>-->
+<!--            </dependency>-->
 
             <!-- GSON -->
             <dependency>

@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.exception;
 
 import io.github.jaksatomovic.covid.statistics.commons.utility.ApiRuntimeException;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class AppException
     extends ApiRuntimeException
 {
-    public AppException(final ResponseCode code, final String message)
+    public AppException(final ApplicationResponseCode code, final String message)
     {
         super(code, message);
     }
 
-    public AppException(ResponseCode responseCode)
+    public AppException(ApplicationResponseCode applicationResponseCode)
     {
-        super(responseCode);
+        super(applicationResponseCode);
     }
 }

@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
-import io.github.jaksatomovic.commons.api.validation.Check;
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Check;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.RapidApiHandler;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.request.GetHistoryRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;

@@ -1,11 +1,11 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.peer;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.StatisticsService;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsResponse;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.statistics.delete.DeleteStatisticsOperation;
 import io.github.jaksatomovic.covid.statistics.core.features.statistics.search.SearchStatisticsOperation;

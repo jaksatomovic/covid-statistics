@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.persistence.domain;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 
 /**
  * The interface Table mapping.

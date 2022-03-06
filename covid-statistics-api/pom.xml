@@ -23,9 +23,9 @@
         </dependency>
 
         <!-- COMMONS -->
-        <dependency>
-            <groupId>io.github.jaksatomovic</groupId>
-            <artifactId>commons-api</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.jaksatomovic</groupId>-->
+<!--            <artifactId>commons-api</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

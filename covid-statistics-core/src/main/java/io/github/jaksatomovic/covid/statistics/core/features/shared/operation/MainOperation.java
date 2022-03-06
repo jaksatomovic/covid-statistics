@@ -1,9 +1,9 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.operation;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.commons.api.messages.response.AbstractResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.response.AbstractResponse;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.exception.AppException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.OperationContext;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public abstract class MainOperation<I extends AbstractRequest, O extends Abstrac
         catch (AppException pse)
         {
             logger.error("Service exception: {}", pse.getMessage());
-            throw ApiException.createFrom(ResponseCode.REQUEST_INVALID, pse.getMessage());
+            throw ApiException.createFrom(ApplicationResponseCode.REQUEST_INVALID, pse.getMessage());
         }
         catch (Exception e)
         {

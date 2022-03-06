@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.cleanup;
 
-import io.github.jaksatomovic.commons.api.validation.Check;
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Check;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.maintainer.ResourceMaintainer;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchStore;
 import org.slf4j.Logger;

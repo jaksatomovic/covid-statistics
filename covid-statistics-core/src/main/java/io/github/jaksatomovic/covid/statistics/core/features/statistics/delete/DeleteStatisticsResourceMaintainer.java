@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.delete;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.maintainer.ResourceMaintainer;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.SearchStore;
 import org.slf4j.Logger;

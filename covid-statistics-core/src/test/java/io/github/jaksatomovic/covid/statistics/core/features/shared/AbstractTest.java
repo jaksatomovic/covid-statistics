@@ -1,12 +1,12 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.api.features.cleanup.CleanupRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsResponse;
 import io.github.jaksatomovic.covid.statistics.api.shared.Statistics;
+import io.github.jaksatomovic.covid.statistics.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.features.cleanup.CleanupContext;
 import io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update.UpdateCountriesContext;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.response.GetHistoryResponse;
@@ -18,7 +18,6 @@ import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbSearch;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbStatistics;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

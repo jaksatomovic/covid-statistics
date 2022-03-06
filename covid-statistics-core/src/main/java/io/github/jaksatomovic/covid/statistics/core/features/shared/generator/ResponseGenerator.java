@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.generator;
 
-import io.github.jaksatomovic.commons.api.messages.response.AbstractResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.response.AbstractResponse;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.context.OperationContext;
 
 /**

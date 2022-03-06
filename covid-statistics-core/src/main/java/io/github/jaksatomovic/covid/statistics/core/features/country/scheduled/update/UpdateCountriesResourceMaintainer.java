@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.maintainer.ResourceMaintainer;
 import io.github.jaksatomovic.covid.statistics.core.persistence.domain.DbCountry;
 import io.github.jaksatomovic.covid.statistics.core.persistence.store.CountryStore;

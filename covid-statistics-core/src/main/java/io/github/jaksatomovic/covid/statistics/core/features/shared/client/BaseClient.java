@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client;
 
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.Executor;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.RapidApiRequest;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.RapidApiResponse;
@@ -50,6 +50,6 @@ public abstract class BaseClient
         throws RapidApiException
     {
         logger.error("General exception occurred: {}", ex.getMessage());
-        throw RapidApiException.createFrom(request, ResponseCode.UNKNOWN, ex.getMessage());
+        throw RapidApiException.createFrom(request, ApplicationResponseCode.UNKNOWN, ex.getMessage());
     }
 }

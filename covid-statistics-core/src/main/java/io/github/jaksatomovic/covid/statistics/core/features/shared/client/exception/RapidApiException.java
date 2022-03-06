@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.client.exception;
 
 import io.github.jaksatomovic.covid.statistics.commons.utility.ApiRuntimeException;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.RapidApiRequest;
 
 /**
@@ -11,12 +11,12 @@ import io.github.jaksatomovic.covid.statistics.core.features.shared.client.api.R
 public class RapidApiException
     extends ApiRuntimeException
 {
-    public RapidApiException(final ResponseCode code, final String message)
+    public RapidApiException(final ApplicationResponseCode code, final String message)
     {
         super(code, message);
     }
 
-    public static RapidApiException createFrom(RapidApiRequest request, ResponseCode code, String message)
+    public static RapidApiException createFrom(RapidApiRequest request, ApplicationResponseCode code, String message)
     {
         if (request == null)
         {
@@ -28,7 +28,7 @@ public class RapidApiException
         }
         else
         {
-            return new RapidApiException(ResponseCode.UNKNOWN, message);
+            return new RapidApiException(ApplicationResponseCode.UNKNOWN, message);
         }
     }
 }

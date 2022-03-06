@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.country.scheduled.update;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.api.features.country.update.UpdateCountriesRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.validator.request.BaseRequestValidator;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.validator.request.RequestValidator;
 import org.slf4j.Logger;

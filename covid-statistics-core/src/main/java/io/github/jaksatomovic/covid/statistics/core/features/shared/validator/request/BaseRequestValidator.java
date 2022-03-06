@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.shared.validator.request;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

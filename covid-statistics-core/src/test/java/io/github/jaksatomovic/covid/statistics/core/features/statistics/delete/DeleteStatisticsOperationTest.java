@@ -1,8 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.delete;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.delete.DeleteStatisticsResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.AbstractTest;
 import org.junit.jupiter.api.Assertions;

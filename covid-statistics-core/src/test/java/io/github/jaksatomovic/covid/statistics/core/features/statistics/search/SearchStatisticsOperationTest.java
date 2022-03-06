@@ -1,9 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsRequest;
 import io.github.jaksatomovic.covid.statistics.api.features.statistics.search.SearchStatisticsResponse;
-import io.github.jaksatomovic.covid.statistics.api.shared.Statistics;
 import io.github.jaksatomovic.covid.statistics.commons.exception.ApiException;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.AbstractTest;
 import org.junit.jupiter.api.Assertions;

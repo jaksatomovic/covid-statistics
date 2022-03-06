@@ -7,27 +7,27 @@ package io.github.jaksatomovic.covid.statistics.commons.utility;
 public class ApiRuntimeException
     extends RuntimeException
 {
-    private static final long         serialVersionUID = 1L;
-    private final        ResponseCode code;
+    private static final long                    serialVersionUID = 1L;
+    private final        ApplicationResponseCode code;
 
-    public ApiRuntimeException(ResponseCode code)
+    public ApiRuntimeException(ApplicationResponseCode code)
     {
         this(code, (String)null);
     }
 
-    public ApiRuntimeException(ResponseCode code, String message)
+    public ApiRuntimeException(ApplicationResponseCode code, String message)
     {
         super(message);
         this.code = code;
     }
 
-    public ApiRuntimeException(ResponseCode code, String format, Object... args)
+    public ApiRuntimeException(ApplicationResponseCode code, String format, Object... args)
     {
         super(String.format(format, args));
         this.code = code;
     }
 
-    public ResponseCode getResponseCode()
+    public ApplicationResponseCode getResponseCode()
     {
         return this.code;
     }

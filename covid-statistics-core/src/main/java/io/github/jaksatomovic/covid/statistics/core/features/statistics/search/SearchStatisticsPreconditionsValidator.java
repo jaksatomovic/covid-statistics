@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.core.features.statistics.search;
 
-import io.github.jaksatomovic.commons.api.validation.Defense;
+import io.github.jaksatomovic.covid.statistics.commons.api.validation.Defense;
 import io.github.jaksatomovic.covid.statistics.core.features.shared.validator.context.PreconditionsValidator;
 import org.springframework.stereotype.Service;
 

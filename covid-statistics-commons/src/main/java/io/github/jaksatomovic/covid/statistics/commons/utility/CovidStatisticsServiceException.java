@@ -13,10 +13,10 @@ public class CovidStatisticsServiceException
     /**
      * Creates the exception by the given arguments.<br>
      *
-     * @param responseCode [{@link ResponseCode}] :: the response code
+     * @param responseCode [{@link ApplicationResponseCode}] :: the response code
      * @param message      [String] :: the message
      */
-    public CovidStatisticsServiceException(ResponseCode responseCode, String message)
+    public CovidStatisticsServiceException(ApplicationResponseCode responseCode, String message)
     {
         super(responseCode, message);
     }
@@ -26,11 +26,11 @@ public class CovidStatisticsServiceException
      *
      * @param template  [{@link String}] :: the error message template
      * @param arguments [{@link Object}[]] :: the error template arguments
-     * @return exception [{@link ResponseCode}] :: the exception
+     * @return exception [{@link ApplicationResponseCode}] :: the exception
      */
     public static CovidStatisticsServiceException databaseError(String template, Object... arguments)
     {
-        return error(ResponseCode.PERSISTENCE_EXCEPTION, template, arguments);
+        return error(ApplicationResponseCode.PERSISTENCE_EXCEPTION, template, arguments);
     }
 
     /**
@@ -42,7 +42,7 @@ public class CovidStatisticsServiceException
      */
     public static CovidStatisticsServiceException unknownError(String message, Object... arguments)
     {
-        return error(ResponseCode.UNKNOWN, message, arguments);
+        return error(ApplicationResponseCode.UNKNOWN, message, arguments);
     }
 
     /**
@@ -54,7 +54,7 @@ public class CovidStatisticsServiceException
      */
     public static CovidStatisticsServiceException internalError(String message, Object... arguments)
     {
-        return error(ResponseCode.UNKNOWN, message, arguments);
+        return error(ApplicationResponseCode.UNKNOWN, message, arguments);
     }
 
     /**
@@ -66,7 +66,7 @@ public class CovidStatisticsServiceException
      */
     public static CovidStatisticsServiceException ioError(String message, Object... arguments)
     {
-        return error(ResponseCode.HTTP_CLIENT_EXCEPTION, message, arguments);
+        return error(ApplicationResponseCode.HTTP_CLIENT_EXCEPTION, message, arguments);
     }
 
     /**
@@ -78,7 +78,7 @@ public class CovidStatisticsServiceException
      */
     public static CovidStatisticsServiceException validationError(String message, Object... arguments)
     {
-        return error(ResponseCode.REQUEST_INVALID, message, arguments);
+        return error(ApplicationResponseCode.REQUEST_INVALID, message, arguments);
     }
 
     /**
@@ -95,12 +95,12 @@ public class CovidStatisticsServiceException
     /**
      * Creates a new top-up service exception by the given arguments.<br>
      *
-     * @param responseCode [{@link ResponseCode}] :: the response code
+     * @param responseCode [{@link ApplicationResponseCode}] :: the response code
      * @param template     [String] :: the error message template
      * @param arguments    [Object[]] :: the error message template arguments
      * @return exception [{@link CovidStatisticsServiceException}] :: SSOServiceException
      */
-    private static CovidStatisticsServiceException error(ResponseCode responseCode, String template, Object... arguments)
+    private static CovidStatisticsServiceException error(ApplicationResponseCode responseCode, String template, Object... arguments)
     {
         return new CovidStatisticsServiceException(responseCode, String.format(template, arguments));
     }

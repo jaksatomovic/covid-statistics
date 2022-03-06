@@ -1,7 +1,7 @@
 package io.github.jaksatomovic.covid.statistics.commons.exception;
 
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.covid.statistics.commons.utility.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.utility.ApplicationResponseCode;
 
 /**
  * @author Jakša Tomović
@@ -12,10 +12,10 @@ public class ApiException
 {
     public static ApiException createFrom(final String message)
     {
-        return createFrom(ResponseCode.UNKNOWN, message);
+        return createFrom(ApplicationResponseCode.UNKNOWN, message);
     }
 
-    public static ApiException createFrom(ResponseCode code, String message)
+    public static ApiException createFrom(ApplicationResponseCode code, String message)
     {
         if (code == null)
         {
@@ -27,7 +27,7 @@ public class ApiException
         }
     }
 
-    public static <T extends AbstractRequest> ApiException createFrom(T request, ResponseCode code, String message)
+    public static <T extends AbstractRequest> ApiException createFrom(T request, ApplicationResponseCode code, String message)
     {
         if (request == null)
         {

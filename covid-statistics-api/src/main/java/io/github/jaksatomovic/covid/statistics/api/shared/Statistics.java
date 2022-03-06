@@ -1,6 +1,6 @@
 package io.github.jaksatomovic.covid.statistics.api.shared;
 
-import io.github.jaksatomovic.commons.api.model.ApiEntity;
+import io.github.jaksatomovic.covid.statistics.commons.api.model.ApiEntity;
 
 /**
  * The type Statistics.

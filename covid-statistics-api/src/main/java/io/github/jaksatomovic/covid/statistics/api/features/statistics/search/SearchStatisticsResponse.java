@@ -1,9 +1,9 @@
 package io.github.jaksatomovic.covid.statistics.api.features.statistics.search;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.commons.api.messages.response.AbstractPayloadResponse;
 import io.github.jaksatomovic.covid.statistics.api.shared.Statistics;
+import io.github.jaksatomovic.covid.statistics.commons.api.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.response.AbstractPayloadResponse;
 
 /**
  * The type Search statistics response.

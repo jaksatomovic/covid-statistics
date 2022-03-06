@@ -1,8 +1,8 @@
 package io.github.jaksatomovic.covid.statistics.api.features.cleanup;
 
-import io.github.jaksatomovic.commons.api.ResponseCode;
-import io.github.jaksatomovic.commons.api.messages.request.AbstractRequest;
-import io.github.jaksatomovic.commons.api.messages.response.AbstractResponse;
+import io.github.jaksatomovic.covid.statistics.commons.api.ResponseCode;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.request.AbstractRequest;
+import io.github.jaksatomovic.covid.statistics.commons.api.messages.response.AbstractResponse;
 
 /**
  * The type Update country response.
