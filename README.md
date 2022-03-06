@@ -13,7 +13,7 @@ In order to test application easy we have swagger-ui and postman collections (on
 |--------------------------------------------------------|----------------------------------------------------------------------|
 | Rapid Collection                                       | [postman/COVID-19-API.json][PlRApi]                                  |
 | Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlAppJWT]                         |
-| Application Collection (with JWT) branch - feature/JWT | [postman/COVID-19-APLICATION.json][PlApp]                            |
+| Application Collection                                 | [postman/COVID-19-APLICATION.json][PlApp]                            |
 | Swagger UI                                             | [swagger-ui](http://localhost:9017/covid-statistics/swagger-ui.html) |
 
 *** There is branch called feature/JWT. Here you will find quick and hardcoded implementation for jwt authentication but it is not finished yet.
